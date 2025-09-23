@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="flex justify-end mx-20 text-2xl font-semibold">
+            <p @click="showLogin" class="cursor-pointer hover:text-green-600 transition duration-300 ease-in-out">Login
+            </p>
+        </nav>
+        <div class="bg-blue-400">
+            <div class=" flex justify-center">
+                <div class="w-80 h-80  bg-white shadow-lg rounded-lg mt-20 text-center">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-blue-500 mt-8"> For Security purposes</h1>
+                        <h1 class=""> You must login first</h1>
+                        <h1 class="text-gray-500 text-xl mt-5"> For your comfort and to give you best experience.</h1>
+                    </div>
+                </div>
+            </div>
+            <div @click="hideLogin" class="h-screen relative"></div>
+            <div v-if="showForm" class="absolute right-30 top-25">
+                <form class="bg-gray-100 w-110 h-120 shadow-xl rounded-lg">
+                    <p class="text-center font-semibold text-2xl pt-5 text-gray-500">Login</p>
+                    <div class="flex  flex-col mx-10 gap-5">
+                        <input type="text" name="" id="" placeholder="Enter username"
+                            class="border-3 pl-3 rounded-lg border-gray-400 text-xl">
+                        <input type="text" name="" id="" placeholder="Enter password"
+                            class="border-3 pl-3 rounded-lg border-gray-400 text-xl">
+                        <p class="text-blue-500 cursor-pointer hover:text-blue-400">forgot password?</p>
+                        <button class="bg-blue-500 text-xl text-white rounded-lg py-[3px] font-semibold hover:bg-blue-400
+                transition duration-300 ease-in-out cursor-pointer">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    showForm: false,
+
+                }
+            },
+            methods: {
+                showLogin() {
+                    this.showForm = true;
+                },
+                hideLogin() {
+                    this.showForm = false;
+                }
+            }
+        }).mount('#app')
+
+
+
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="flex justify-center">
+            <div class="shadow-lg bg-white m-5 w-120 h-60 mt-30">
+                <h1 class="text-center">Fill up form</h1>
+                <div class="flex flex-col justify-center items-center gap-3 m-5">
+                    <input v-model="name" type="text" name="" id="" placeholder="Enter your name"
+                        class="border border-gray-400 w-60">
+                    <input v-model="email" type="text" name="" id="" placeholder="Enter your name"
+                        class="border border-gray-400 w-60">
+                    <input v-model="address" type="text" name="" id="" placeholder="Enter your address"
+                        class="border border-gray-400 w-60">
+                    <button @click="transfer" class="bg-blue-400 w-30 rounded-lg cursor-pointer">Submit</button>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="flex justify-center">
+            <div class="shadow-lg bg-white w-50 h-50 ">
+                <p class="ml-4">name: <span>{{transferName}}</span></p>
+                <p class="ml-4">email: <span>{{transferEmail}}</span></p>
+                <p class="ml-4">address: <span>{{transferAddress}}</span></p>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    name: '',
+                    email: '',
+                    address: '',
+
+                    transferName: '',
+                    transferEmail: '',
+                    transferAddress: '',
+                }
+            },
+            methods: {
+                transfer() {
+                    this.transferName = this.name
+                    this.transferEmail = this.email
+                    this.transferAddress = this.address
+
+                }
+            }
+        }).mount('#app')
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

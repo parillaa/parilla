@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="flex justify-center">
+            <div class="shadow-lg bg-white m-5 w-120 h-60 mt-30">
+                <h1 class="text-center">Fill up form</h1>
+                <heading :name="name" :email="email" :address="address"></heading>
+                <div class="flex justify-center">
+                    <button @click="transferInfo" class=" bg-blue-400 w-30 rounded-lg cursor-pointer">Submit</button>
+                </div>
+            </div>
+        </div>
+        <second-form :transferName="transfername" :transferemail="transferemail"
+            :transferaddress="transferaddress"></second-form>
+    </div>
+
+    <script>
+
+        const { createApp } = Vue
+
+        const app = createApp({
+            data() {
+                return {
+                    name: '',
+                    email: '',
+                    address: '',
+
+                    transfername: '',
+                    transferemail: '',
+                    transferaddress: '',
+                }
+            },
+            methods: {
+                transferInfo() {
+                    this.transfername = this.name;
+                    this.transferemail = this.email;
+                    this.transferaddress = this.address;
+
+                }
+            }
+
+        });
+        app.component('Heading', {
+            props: ["name", "email", "address"],
+
+            template: ` 
+           
+                <div class="flex flex-col justify-center items-center gap-3 m-5">
+                    <input v-model="$parent.name" type="text" name="" id="" placeholder="Enter your name"
+                        class="border border-gray-400 w-60">
+                    <input v-model="$parent.email" type="text" name="" id="" placeholder="Enter your email"
+                        class="border border-gray-400 w-60">
+                    <input v-model="$parent.address" type="text" name="" id="" placeholder="Enter your address"
+                        class="border border-gray-400 w-60">
+                </div>`,
+
+        });
+        app.component('second-form', {
+            props: ["transfername", "transferemail", "transferaddress"],
+
+            template: ` <div class="flex justify-center">
+            <div class="shadow-lg bg-white w-50 h-50 ">
+                <p class="ml-4 font-thin">name: <span>{{transfername}}</span></p>
+                <p class="ml-4 font-thin">email: <span>{{transferemail}}</span></p>
+                <p class="ml-4 font-thin">address: <span>{{transferaddress}}</span></p>
+
+            </div>
+        </div>`,
+
+        })
+        app.mount("#app");
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>

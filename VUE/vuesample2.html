@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="flex justify-center">
+            <div class="flex justify-center mt-10 bg-gray-100 w-100 h-85">
+                <div class=" mt-5">
+                    <div>
+                        <label for=" pizzaQuantity" class="font-semibold"> Pizza: &#8369;50</label>
+                    </div>
+                    <div>
+                        <input v-model="input1" name="pizzaQuantity" id="pizza" placeholder="Enter Quantity"
+                            class="border border-black w-70 h-10">
+                    </div>
+                    <div class="">
+                        <label for="burgerQuantity" class="font-semibold">Burger: &#8369;100</label>
+                    </div>
+                    <div>
+                        <input v-model="input2" name="burgerQuantity" id="burger" placeholder="Enter Quantity"
+                            class="border border-black w-70 h-10">
+                    </div>
+                    <div>
+                        <button type="button" id="btnCalculate" class="border-1 w-30 h-8 mt-2 hover:bg-gray-400 font-"
+                            @click="calculate">Calculate</button>
+                    </div>
+                    <div class="flex justify-start">
+                        <p id="total" class="font-bold">Subtotal: <span>{{displayTotal}}</span></p>
+                    </div>
+                    <div>
+                        <input v-model="amountToPay" type="text" name="enterAmount" id="enterAmount"
+                            placeholder="Enter Amount" class="border border-black w-30 h-8 mt-2">
+                    </div>
+
+                    <div>
+                        <button type="button" id="btnPay" class="border-1 w-30 h-8 mt-3 font-bold hover:bg-gray-400"
+                            @click="payment">Pay</button>
+
+                        <div class="flex justify-start mt-3">
+                            <p id="total" class="font-bold">Total Change: <span>{{totalChange}}</span></p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+
+        Vue.createApp({
+            data() {
+                return {
+                    pizza: 50,
+                    burger: 100,
+                    input1: '',
+                    input2: '',
+                    totalChange: '',
+                    totalPizza: '',
+                    subTotal: '',
+                    amountToPay: '',
+                    displayTotal: '',
+
+                }
+            },
+            methods: {
+                calculate() {
+                    this.totalPizza = this.pizza * this.input1
+                    this.totalBurger = this.burger * this.input2
+                    if (this.pizza >= 1 || this.burger) {
+                        this.displayTotal = this.subTotal = this.totalPizza + this.totalBurger;
+                        // alert(`Your total Purchase is: ${this.subTotal = this.totalPizza + this.totalBurger}`)
+
+                        // } else {
+                        //     alert('Insufficient balance')
+                        // }
+                    }
+                },
+
+                payment() {
+                    this.totalPizza = this.pizza * this.input1
+                    this.totalBurger = this.burger * this.input2
+                    this.subTotal = this.totalBurger + this.totalPizza;
+                    if (this.amountToPay >= this.subTotal) {
+                        this.totalChange = this.amountToPay - this.subTotal;
+                    } else {
+                        this.totalChange='Insufficient balance'
+                    }
+                }
+
+            }
+
+        }).mount('#app');
+
+
+    </script>
+</body>
+
+</html>

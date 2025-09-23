@@ -1,0 +1,141 @@
+const { createApp } = Vue;
+
+const app = createApp({
+    data() {
+        return {
+            boardCells: [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+            ],
+            message: `Let's play`,
+            currentPlayer: 'X',
+            showBoard: false,
+            hideButton: true,
+
+        }
+    },
+
+});
+
+app.component('Heading', {
+    props: [],
+    data() {
+        return {
+            boardCells: [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+            ],
+            message: `Let's play`,
+            currentPlayer: 'X',
+            showBoard: false,
+            hideButton: true,
+        }
+    },
+    template: ` <div class="flex justify-center mt-20 ">
+            <div id="tic tac toe" class="mt-25">
+                <h1 class=" felx justify-center text-center text-3xl font-bold mb-3 text-gray-600">Tic tac toe</h1>
+                <div v-if="showBoard" id="board" class="grid grid-cols-3  bg-gray-400 p-5  rounded-lg">
+                    <div v-for="(row,rowIndex) in boardCells">
+                        <div v-for="(cell,colIndex) in row" @click="cellClicked(rowIndex, colIndex)"
+                            class="bg-gray-200 w-20 h-20 m-3 rounded-lg text-center" :class="{
+                                'flex justify-center items-center text-2xl font-bold text-pink-600': cell=== 'X',
+                                'flex justify-center items-center text-2xl font-bold text-blue-600': cell=== 'O',
+                            }">
+                            {{cell}}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center mt-5 gap-5">
+            <h1 class="text-2xl font-bold">{{message}}</h1>
+            <button v-if="hideButton" @click="startGame"
+                class="border px-5 rounded-lg bg-gray-400 font-bold text-2xl hover:bg-blue-200 cursor-pointer transition duration-300">Start
+                Game</button>
+        </div>`
+    ,
+    methods: {
+        startGame() {
+            this.showBoard = true;
+            this.hideButton = false;
+        },
+        cellClicked(row, col) {
+            if (this.boardCells[row][col] === "") {
+                this.boardCells[row][col] = this.currentPlayer;
+                if (this.isWinner(this.currentPlayer)) {
+                    this.message = (`player ${this.currentPlayer} wins!`)
+                    setTimeout(() => {
+                        this.resetGame();
+                    }, 1500);
+                } else if (this.isDraw()) {
+                    this.message = `It's a draw`
+                    setTimeout(() => {
+                        this.resetGame();
+                    }, 1500);
+                } else {
+                    if (this.currentPlayer == 'X') {
+                        this.currentPlayer = 'O';
+                    } else {
+                        this.currentPlayer = 'X';
+                    }
+                    this.message = (`Player ${this.currentPlayer} turn`)
+                }
+            }
+        },
+        isWinner(user) {
+            for (let row = 0; row < 3; row++) {
+                if (this.boardCells[row][0] == user
+                    && this.boardCells[row][1] == user
+                    && this.boardCells[row][2] == user) {
+                    return true;
+                }
+            }
+            for (let col = 0; col < 3; col++) {
+                if (this.boardCells[0][col] == user
+                    && this.boardCells[1][col] == user
+                    && this.boardCells[2][col] == user) {
+                    return true;
+                }
+            }
+            if (this.boardCells[0][0] == user
+                && this.boardCells[1][1] == user
+                && this.boardCells[2][2] == user) {
+                return true;
+
+            }
+            if (this.boardCells[0][2] == user
+                && this.boardCells[1][1] == user
+                && this.boardCells[2][0] == user) {
+                return true;
+            }
+            return false;
+        },
+        isDraw() {
+            for (let row = 0; row < 3; row++) {
+                for (let col = 0; col < 3; col++) {
+                    if (this.boardCells[row][col] === "") {
+                        return false;
+                    }
+                }
+            }
+            return !this.isWinner('X') && !this.isWinner('O');
+
+
+        },
+        resetGame() {
+            this.boardCells = [
+                ["", "", ""],
+                ["", "", ""],
+                ["", "", ""]
+            ];
+            this.currentPlayer = 'X',
+                this.message = `Restarting Game!`;
+
+        }
+        
+    }
+})
+app.mount('#app');

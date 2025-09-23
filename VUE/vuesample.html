@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="text-white bg-gradient-to-br from-blue-600 to-purple-800 h-screen">
+    <div id="app">
+        <div class="flex justify-center">
+
+            <div class="mt-10">
+                <h1 class="font-semibold text-2xl">Product price: <span>50</span></h1>
+                <div class="flex flex-col gap-5">
+                    <input v-model="input1" type="number" name="input1" id="input1" class="border">
+                    <button class="border px-4 text-2xl font-semibold rounded cursor-pointer" @click="payment()">Pay</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    product: 50,
+                    input1: '',
+                    totalChange: '',
+                }
+            },
+            methods: {
+                payment(){
+                    if(this.input1 >= this.product) {
+                        alert(`Your Change is: ${this.totalChange = this.input1 - this.product}`)
+                    } else{
+                        alert('Insufficient balance')
+                    }
+
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+
+</html>

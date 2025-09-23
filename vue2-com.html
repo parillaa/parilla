@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        
+        <heading></heading>
+    </div>
+
+
+    <script>
+
+        const {createApp} = Vue;
+
+       const app = createApp ({
+            data() {
+                return {
+                    students: [
+                        "Aive",
+                        "Crismer",
+                        "Rosemae",
+                        "Jim",
+                        "Bern",
+                        "April",
+                        "Ben"
+                    ],
+                    selected: [],
+                    selectedStudents: [],
+                    addNew: [],
+                }
+            },
+           
+        });
+        app.component('Heading', {
+            props: [],
+            data() {
+                return {
+                    students: [
+                        "Aive",
+                        "Crismer",
+                        "Rosemae",
+                        "Jim",
+                        "Bern",
+                        "April",
+                        "Ben"
+                    ],
+                    selected: [],
+                    selectedStudents: [],
+                    addNew: [],
+                }
+            },
+            template: `<div class="flex justify-center mt-30">
+            <div class="bg-gray-100 shadow-xl w-120">
+                <h1 class="text-center font-bold text-xl mt-2 mb-3">List of Students</h1>
+                <div v-for="(student, index) in students" class="flex ml-5">
+                    <input v-model="selected" type="checkbox" name="" id="" :value="student" class="mr-2">
+                    <p :class="{'line-through text-blue-500': selected.includes(student)}">{{index + 1}}. {{student}}
+                    </p>
+                </div>
+                <div class="flex justify-center gap-2 mt-5">
+                    <input v-model="addNew" type="text" name="" id="" placeholder="Enter new student"
+                        class="border border-gray-300 rounded">
+                    <button @click="addNames"
+                        class=" text-lg border border-gray-300 px-8 rounded hover:bg-gray-200 cursor-pointer">Add
+                        Student</button>
+                </div>
+                <div class="flex justify-center mt-5">
+                    <button @click="transferStudent" class="bg-gray-500 rounded px-40 py-1">Transfer Student</button>
+                </div>
+            </div>
+            <div class=" m-5 mt-20">
+                <div class="bg-gray-100 shadow-xl w-60 h-35">
+                    <p class="text-center font-bold text-lg">Selected Students</p>
+                    <p class="">{{selectedStudents.toString()}}</p>
+                </div>
+            </div>
+        </div>`
+        ,
+        methods: {
+            transferStudent() {
+                    this.selectedStudents.push(this.selected);
+                },
+                addNames() {
+                    this.students.push(this.addNew);
+                }
+            }
+        })
+        app.mount('#app');
+
+    </script>
+</body>
+
+</html>
